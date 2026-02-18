@@ -97,16 +97,16 @@ If the chart is interactive, tooltips should be plain text with the data value a
 
 ## Library quick reference
 
-Load the appropriate rule file for detailed configuration. The table below shows the 3 most critical overrides per library.
+The universal rules above are sufficient for most charts. For complete code examples and library-specific helpers (custom components, theme registrations, helper functions), read the appropriate rule file from the `rules/` directory in this skill's folder. Only read ONE rule file per task — the one matching the charting library.
 
-| Library | Rule file | Critical overrides |
-|---------|-----------|-------------------|
-| Recharts | [rules/recharts.md](rules/recharts.md) | `<CartesianGrid stroke="none" />`, remove `<Legend />`, `axisLine={false}` on YAxis |
-| ECharts | [rules/echarts.md](rules/echarts.md) | `splitLine: { show: false }`, remove grid borders, `label: { show: true }` on series |
-| Chart.js | [rules/chartjs.md](rules/chartjs.md) | `grid: { display: false }`, `border: { display: false }`, use `chartjs-plugin-datalabels` |
-| matplotlib | [rules/matplotlib.md](rules/matplotlib.md) | `spines['top'].set_visible(False)`, `spines['right'].set_visible(False)`, `set_bounds()` |
-| Plotly | [rules/plotly.md](rules/plotly.md) | `showgrid=False`, `showlegend=False`, `plot_bgcolor='#fffff8'` |
-| D3/SVG/HTML | [rules/svg-html.md](rules/svg-html.md) | `.domain { display: none }`, remove rect backgrounds, `stroke-opacity: 0.1` for grids |
+| Library | Rule file to read | Essential config (apply these even without reading the file) |
+|---------|-------------------|-------------------------------------------------------------|
+| Recharts | `rules/recharts.md` | `<CartesianGrid stroke="none" />`, remove `<Legend />`, `<YAxis axisLine={false} tickLine={false} />`, `<Line dot={false} strokeWidth={1.5} />` |
+| ECharts | `rules/echarts.md` | `splitLine: { show: false }`, `legend: { show: false }`, `grid: { show: false }`, use `endLabel` on series |
+| Chart.js | `rules/chartjs.md` | `grid: { display: false }`, `border: { display: false }`, `plugins.legend.display: false`, use `chartjs-plugin-datalabels` |
+| matplotlib | `rules/matplotlib.md` | `spines['top'].set_visible(False)`, `spines['right'].set_visible(False)`, `spines['bottom'].set_bounds(min, max)`, `font.family: serif` |
+| Plotly | `rules/plotly.md` | `showgrid=False`, `showlegend=False`, `plot_bgcolor='#fffff8'`, `zeroline=False` |
+| D3/SVG/HTML | `rules/svg-html.md` | `.domain { display: none }`, no `<rect>` backgrounds, `stroke-opacity: 0.1` for any gridlines |
 
 ---
 
@@ -224,14 +224,17 @@ For comprehensive detection heuristics with per-library code patterns, see [rule
 
 ## Reference files
 
-Load these for detailed configuration when working with a specific library:
+These files live in the `rules/` directory alongside this SKILL.md. Read them only when you need the detailed code — the universal rules and library table above handle 90% of cases.
 
-- [rules/recharts.md](rules/recharts.md) — Recharts component props, custom Tooltip, direct label pattern, complete JSX examples
-- [rules/echarts.md](rules/echarts.md) — ECharts option object, theme registration, series labeling
-- [rules/chartjs.md](rules/chartjs.md) — Chart.js defaults, Tufte plugin, datalabels integration
-- [rules/matplotlib.md](rules/matplotlib.md) — rcParams, spine management, helper functions, seaborn integration
-- [rules/plotly.md](rules/plotly.md) — Plotly template, layout defaults, annotation patterns
-- [rules/svg-html.md](rules/svg-html.md) — Raw SVG, D3 axis config, HTML table CSS
-- [rules/typography-and-color.md](rules/typography-and-color.md) — Font stacks, palettes, loading, old-style figures
-- [rules/anti-patterns.md](rules/anti-patterns.md) — Violation detection with per-library code fixes
-- [rules/small-multiples-sparklines.md](rules/small-multiples-sparklines.md) — Layout patterns for small multiples, sparkline implementations, slopegraphs
+**Library-specific** (read ONE, matching the target library):
+- `rules/recharts.md` — Custom Tooltip component, direct label component, range-frame tick, complete examples
+- `rules/echarts.md` — Theme registration object, base option, endLabel config, markPoint/markLine
+- `rules/chartjs.md` — Global defaults setup, Tufte plugin, datalabels integration, annotation plugin
+- `rules/matplotlib.md` — Full rcParams dict, `tufte_axes()` helper, sparkline function, seaborn integration
+- `rules/plotly.md` — Reusable `pio.templates['tufte']`, annotation helpers, Plotly.js equivalent
+- `rules/svg-html.md` — SVG chart CSS, D3 axis config, inline sparkline generator, HTML table CSS
+
+**Cross-cutting** (read only if the task specifically involves these):
+- `rules/typography-and-color.md` — Font loading (ET Book CSS), full palette tables, old-style figures
+- `rules/anti-patterns.md` — Per-library detection patterns and one-liner fixes
+- `rules/small-multiples-sparklines.md` — Small multiple layouts (grid/subplots), sparkline implementations, slopegraphs
