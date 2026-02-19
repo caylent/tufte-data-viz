@@ -87,9 +87,9 @@ ax.set_xticks(months)
 ax.set_xticklabels(mlabels)
 ax.set_ylabel("Revenue ($k)", fontsize=12, color=C["text2"])
 
-fig.text(0.125, 0.95, "Monthly Revenue vs. Target, 2025",
+fig.text(0.125, 0.95, "Revenue Exceeded Target Every Month, Accelerating in H2",
          fontsize=18, fontfamily="serif", color=C["text"])
-fig.text(0.125, 0.91, "Revenue exceeded target every month, accelerating in H2",
+fig.text(0.125, 0.91, "Monthly revenue vs. target, 2025",
          fontsize=13, fontfamily="serif", color=C["text2"])
 
 plt.tight_layout()
@@ -121,9 +121,9 @@ ax.set_xticks([])
 ax.tick_params(left=False)
 ax.invert_yaxis()
 
-fig.text(0.04, 0.95, "Revenue by Product",
+fig.text(0.04, 0.95, "Product A Leads With 31% of Total Revenue",
          fontsize=18, fontfamily="serif", color=C["text"])
-fig.text(0.04, 0.90, "Product A leads with 31% of total revenue",
+fig.text(0.04, 0.90, "Revenue by product, sorted by value",
          fontsize=13, fontfamily="serif", color=C["text2"])
 
 plt.tight_layout()
@@ -239,7 +239,7 @@ for ax in axes[1:]:
     ax.spines["left"].set_visible(False)
 
 fig.patch.set_facecolor("#fffff8")
-fig.text(0.08, 0.98, "Revenue Trend by Region",
+fig.text(0.08, 0.98, "North and East Outpaced South and West in 2025",
          fontsize=16, fontfamily="serif", color=C["text"], va="top")
 plt.tight_layout()
 plt.subplots_adjust(top=0.82, wspace=0.1)
@@ -324,7 +324,7 @@ fig, ax = plt.subplots(figsize=(9, 6))
 
 for name, g in groups.items():
     ax.scatter(g["x"], g["y"], marker=g["marker"], c=g["color"],
-              s=40, alpha=0.7, edgecolors="none", label=name)
+              s=40, alpha=0.7, edgecolors="none")
     # Direct label at cluster centroid
     cx, cy = np.mean(g["x"]), np.mean(g["y"])
     ax.annotate(name, xy=(cx, cy), xytext=(12, 0), textcoords="offset points",
