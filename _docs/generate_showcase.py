@@ -478,8 +478,8 @@ for i, (name, data) in enumerate(metrics.items()):
 
     # Min/max dots
     imin, imax = np.argmin(data), np.argmax(data)
-    ax.plot(imin, data[imin], "o", color=C["highlight"], markersize=3)
-    ax.plot(imax, data[imax], "o", color=C["cat"][0], markersize=3)
+    ax.plot(imin, data[imin], "o", color=C["highlight"], markersize=5)
+    ax.plot(imax, data[imax], "o", color=C["cat"][0], markersize=5)
 
     # Endpoint value
     ax.text(len(data) + 0.5, data[-1], f"{data[-1]:.1f}",
@@ -501,14 +501,14 @@ for i, (name, data) in enumerate(metrics.items()):
         ax.axhline(y=ax.get_ylim()[0], color="#eeeeee", linewidth=0.5,
                    xmin=-0.15, xmax=1.15, clip_on=False)
 
-fig.text(0.5, 0.98, "Key Metrics, Last 24 Months",
+fig.text(0.5, 1.0, "Key Metrics, Last 24 Months",
          fontsize=16, fontfamily="serif", color=C["text"], ha="center", va="top")
 fig.text(0.5, 0.94, "Red dot = min, blue dot = max",
          fontsize=11, fontfamily="serif", color=C["text2"], ha="center", va="top")
 
 fig.patch.set_facecolor("#fffff8")
 plt.tight_layout()
-plt.subplots_adjust(top=0.88, left=0.18, right=0.92, hspace=0.4)
+plt.subplots_adjust(top=0.85, left=0.18, right=0.92, hspace=0.4)
 plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-sparklines.png")
 plt.close()
 
