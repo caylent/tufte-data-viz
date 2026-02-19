@@ -20,6 +20,11 @@
 | **Exploded pie slices** | Pulling slices apart makes comparison even harder than standard pie. | Don't. Use a bar chart. |
 | **Data point markers on every point** | Large circles on 50+ data points create a confetti effect that obscures the trend. | `dot={false}` or markers only at notable points (min, max, endpoint). |
 | **Thick axis lines** | Heavy 2-3px axis lines draw attention away from the data. The 1+1=3 effect creates phantom visual weight. | 0.5–1px axis lines, or remove entirely if ticks provide orientation. |
+| **Hover-only information** | Touch and keyboard users can never access it. Violates WCAG. | Tap/click/focus fallback for all hover content. |
+| **Missing text alternative** | Screen readers announce nothing. The chart is invisible to blind users. | Add `aria-label` with key finding + data summary, or companion data table. |
+| **Color as sole differentiator** | 8% of males have color vision deficiency. Series become indistinguishable. | Add shape, dash pattern, or direct label as second channel. |
+| **Gratuitous entrance animation** | Chart "building" on load delays comprehension and is chartjunk in motion. | Remove, or gate behind `prefers-reduced-motion` check. |
+| **Fixed pixel width** | Chart overflows or becomes unreadable on mobile. | Use percentage/viewBox width or breakpoint-based layout. |
 
 ## Per-library detection patterns
 

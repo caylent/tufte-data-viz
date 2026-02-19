@@ -1,13 +1,12 @@
 ---
 name: tufte-data-viz
-version: "1.0.0"
 description: >-
-  This skill should be used when the user asks to "create a chart", "build
-  a graph", "make a visualization", "plot this data", "create a dashboard",
-  "add a sparkline", "review my chart", "style this chart", or when generating
-  or modifying code that uses Recharts, ECharts, Chart.js, matplotlib, Plotly,
-  seaborn, D3.js, or SVG to render data visually. Applies Edward Tufte's
-  principles for clean, honest, high-data-ink-ratio charts and plots.
+  Use when creating, reviewing, or styling charts, graphs, dashboards,
+  sparklines, or any data visualization. Applies to Recharts, ECharts,
+  Chart.js, matplotlib, Plotly, seaborn, D3.js, and SVG. Enforces Tufte
+  principles (data-ink ratio, direct labeling, range-frame axes) plus
+  modern screen-first standards (accessibility, responsive, dark mode).
+allowed-tools: Read, Glob, Grep
 ---
 
 # Tufte Data Visualization
@@ -27,7 +26,7 @@ Before writing code, determine:
 
 ### Step 2: Apply universal rules
 
-Review the 14 rules below. Every rule is a default — deviate only when the user explicitly requests otherwise.
+Review the rules below. Every rule is a default — deviate only when the user explicitly requests otherwise.
 
 ### Step 3: Apply library-specific config
 
@@ -41,7 +40,7 @@ Run through the validation checklist at the bottom of this file before presentin
 
 ## Universal rules
 
-These 14 rules apply to EVERY chart regardless of library.
+Rules 1–14 cover static principles; 15–19 extend them for screens; 20–22 address content and formatting.
 
 ### 1. Remove top and right borders
 
@@ -53,7 +52,7 @@ Label each data series directly — at the endpoint of a line, on or beside a ba
 
 ### 3. No gridlines by default
 
-The default is zero gridlines. If the user needs to read precise values, add horizontal-only gridlines at very low opacity (0.08–0.12). Never add vertical gridlines.
+The default is zero gridlines. For static charts where users need to read precise values, add horizontal-only gridlines at very low opacity (0.08–0.12). For interactive charts, prefer a contextual crosshair on hover instead (see rule 15). Never add vertical gridlines.
 
 ### 4. Range-frame axes
 
@@ -73,7 +72,7 @@ Charts should be approximately 50% wider than tall. Standard sizes: 600x400, 750
 
 ### 8. Gray first, highlight selectively
 
-The default data series color is medium gray (`#666`). Use a single accent color to highlight the most important series or data point. Never use more than 4 distinct colors.
+The default data series color is medium gray (`#666`). Use a single accent color to highlight the most important series or data point. Never use more than 4 distinct colors. Choose the right palette type: **categorical** (4-color muted) for unordered groups, **sequential** (single-hue ramp) for ordered magnitude, **diverging** (two-hue from center) for deviation from a midpoint. See `rules/typography-and-color.md` for hex values.
 
 ### 9. Off-white background
 
@@ -89,7 +88,7 @@ Two y-axes on one chart create false implied correlations. Use small multiples i
 
 ### 12. Annotate the notable
 
-If the data contains a peak, trough, inflection point, or event boundary, add a text annotation pointing to it directly on the chart.
+If the data contains a peak, trough, inflection point, or event boundary, add a text annotation pointing to it directly on the chart. Place annotations in the nearest clear space — offset from the data point with a short leader line if needed. When multiple annotations compete for space, keep only the most important; move others to a footnote or tooltip.
 
 ### 13. Show comparison context
 
@@ -98,6 +97,38 @@ Include at least one reference element: a reference line (average, target, prior
 ### 14. Minimal tooltips
 
 Tooltips should be plain text with the data value and label. No colored background, no border, no arrow pointer, no shadow.
+
+### 15. Progressive disclosure over static density
+
+Default to the Tufte-clean overview — high data-ink, minimal chrome. Layer details through hover, tap, and click (values, annotations, comparisons). Don't frontload everything onto a single static view. A contextual crosshair on hover replaces permanent gridlines.
+
+### 16. Accessible by default
+
+3:1 contrast ratio minimum for chart elements against their background; 4.5:1 for text in charts. Never use color as the sole differentiator — pair with shape, pattern, or direct label. Provide a text alternative for every chart (`aria-label` with key finding, or companion data table). Interactive charts must be keyboard-navigable.
+
+### 17. Responsive, not just resized
+
+Charts must have a responsive strategy — fluid (percentage width + viewBox), adaptive (breakpoint-based layout changes), or hybrid. At narrow viewports, change chart type or layout (horizontal bars for categories, reduced tick density, abbreviated labels), don't just shrink.
+
+### 18. Animate to explain, not to decorate
+
+Transitions for data changes (sorting, filtering, time progression) are good — they help the viewer track transformations. Gratuitous entrance animations, bouncing, and decorative motion are chartjunk. Duration: 200–500ms, ease-out. Always respect `prefers-reduced-motion`.
+
+### 19. Dark mode as first-class citizen
+
+Design both light and dark palettes intentionally. Never invert colors. Reduce saturation in dark mode (bright colors "vibrate" on dark backgrounds). Respect `prefers-color-scheme`. Use semantic color tokens (`--tufte-bg`, `--tufte-text`, `--tufte-series-default`) so charts adapt automatically.
+
+### 20. Titles assert findings
+
+The chart title states the key insight, not the axis description. "Revenue Surged 23% in Q3" not "Revenue by Quarter, 2024". The subtitle can provide context ("vs. prior year, USD millions"). If the data has no clear finding, the chart may not be needed (see rule 22).
+
+### 21. Format numbers for humans
+
+Abbreviate large numbers: $1.2M not $1,200,000. Use thousand separators for mid-range numbers (12,450 not 12450). Match decimal precision to significance (don't show $4.2391M when $4.2M suffices). Right-align numbers in tables. Use consistent units and state them once (in the axis label or title), not on every data point.
+
+### 22. Don't chart what a sentence can say
+
+If the data is 1–2 numbers, write a sentence with inline context ("Revenue was $4.2M, up 23% from Q2"). If the data is a simple ranking of 3–5 items, consider a table. Charts earn their space by revealing patterns, trends, or distributions that text and tables cannot. A chart of two bars is almost always worse than a sentence.
 
 ---
 
@@ -118,110 +149,44 @@ The universal rules above are sufficient for most charts. For complete code exam
 
 ## Chart type guidance
 
-### Line chart
-- `strokeWidth`: 1.5–2px. No thicker.
-- `dot={false}` unless fewer than 7 data points, then small dots (r=2).
-- Direct label at the rightmost point of each line (series name + current value).
-
-### Bar chart
-- Prefer **horizontal** bars for categorical data — labels read naturally left-to-right.
-- Sort bars by value (largest to smallest), not alphabetically.
-- Direct value labels on or beside each bar.
-- Bar color: `#7a7a7a` default. Highlight one bar with accent color for the key finding.
-
-### Scatter plot
-- Gray dots (`#999`, r=3) as default. Highlight key cluster or outlier with accent color.
-- Add regression/trend line if meaningful (dashed, thin, accent color).
-- Consider rug marks along axes to show marginal distributions.
-
-### Time series
-- Label key events directly on the chart ("Recession", "Product launch", "Policy change").
-- Use range-frame x-axis spanning the date range of the data.
-- For year-over-year comparison, use opacity (current year solid, prior year 30% opacity).
-
-### Small multiples
-- Same scale across ALL panels. Never let panels auto-scale independently.
-- Shared axis labels — x-axis on bottom row only, y-axis on leftmost column only.
-- No panel borders preferred; light gray if needed.
-
-### Sparklines
-- Word-sized: ~80x20px. No axes, no labels, no gridlines.
-- Mark min and max as small dots (r=1.5). Optionally mark the endpoint.
-- Embed inline in text or table cells.
-
-### Data tables
-- No zebra striping. Use whitespace and thin horizontal rules every 3-5 rows.
-- Right-align numbers. Left-align text. Decimal-align where possible.
-- Use old-style figures: `font-feature-settings: 'onum' 1`.
-
-### Slopegraph
-- For before/after comparison across categories.
-- Label both endpoints with value and category name.
-- Lines gray by default; highlight one or two key slopes.
+| Type | Key settings |
+|---|---|
+| **Line** | 1.5–2px stroke, `dot={false}` unless <7 points (then r=2), direct label at rightmost point |
+| **Bar** | Prefer horizontal for categories, sort by value descending, direct value labels, `#7a7a7a` default fill |
+| **Scatter** | Gray dots `#999` r=3, highlight key cluster/outlier with accent, regression line if meaningful (dashed, thin) |
+| **Time series** | Label events on chart ("Recession", "Launch"), range-frame x-axis, YoY via opacity (current solid, prior 30%) |
+| **Small multiples** | Same scale ALL panels, shared axis labels (x on bottom row, y on left column), no panel borders |
+| **Sparklines** | ~80x20px, no axes/labels/gridlines, min/max dots r=1.5, embed inline in text or table cells |
+| **Data tables** | No zebra striping, whitespace + thin rules every 3–5 rows, right-align numbers, `font-feature-settings: 'onum' 1` |
+| **Slopegraph** | Before/after categories, label both endpoints (value + name), gray default + highlight key slopes |
 
 For small multiples, sparklines, and slopegraph implementation patterns, see `rules/small-multiples-sparklines.md`.
 
 ---
 
-## Color and typography quick reference
+## Color quick reference
 
-```
-LIGHT MODE
-  Background:     #fffff8
-  Text primary:   #111111
-  Text secondary:  #666666
-  Text tertiary:  #999999
-  Axis/rule:      #cccccc
-  Grid (if used): #eeeeee  (or 8-12% opacity of #000)
-  Default series: #666666
-  Highlight:      #e41a1c
+| Token | Light | Dark |
+|---|---|---|
+| Background | `#fffff8` | `#151515` |
+| Text | `#111` | `#ddd` |
+| Text secondary | `#666` | `#999` |
+| Axis/rule | `#ccc` | `#444` |
+| Grid (if used) | `#eee` (8-12% opacity) | `#333` |
+| Default series | `#666` | `#999` |
+| Highlight | `#e41a1c` | `#fc8d62` |
 
-DARK MODE
-  Background:     #151515
-  Text primary:   #dddddd
-  Text secondary:  #999999
-  Text tertiary:  #666666
-  Axis/rule:      #444444
-  Grid (if used): #333333
-  Default series: #999999
-  Highlight:      #fc8d62
+**Categorical (max 4):** `#4e79a7` steel blue · `#f28e2b` tangerine · `#e15759` coral · `#76b7b2` sage
 
-CATEGORICAL (max 4)
-  #4e79a7  Steel blue
-  #f28e2b  Tangerine
-  #e15759  Coral
-  #76b7b2  Sage
-
-FONTS
-  Data/titles:  "ET Book", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif
-  Axis ticks:   system-ui, -apple-system, sans-serif
-  Code/mono:    "Consolas", "Monaco", monospace
-```
-
-For full palette details, font loading, and old-style figures, see `rules/typography-and-color.md`.
+Font stacks in rule 10. For full palettes (sequential, diverging), font loading, and old-style figures, see `rules/typography-and-color.md`.
 
 ---
 
 ## Anti-pattern detection
 
-When reviewing existing chart code, find and fix these:
+When reviewing existing chart code, check for: legends (→ direct labels), pie charts (→ horizontal bars), 3D effects (→ flat 2D), dual y-axes (→ small multiples), heavy gridlines (→ remove or 0.1 opacity), rainbow palettes (→ gray + accent), gauge widgets (→ number + sparkline), gradient fills (→ solid color), rotated labels (→ flip axes or abbreviate), pure white/black backgrounds (→ `#fffff8`/`#151515`), hover-only information (→ tap/focus fallback), missing text alternatives (→ `aria-label`), color-only encoding (→ add shape/pattern).
 
-| If you see... | Replace with... |
-|---------------|-----------------|
-| `<Legend />` or legend component | Direct labels on each series |
-| `type="pie"` or `Pie` component | Horizontal bar chart sorted by value |
-| 3D, perspective, depth, shadow on data | Flat 2D representation |
-| Two y-axes / dual axis | Small multiples (two charts, shared x-axis) |
-| `gridLines` with opacity > 0.15 | `opacity: 0.1` or remove entirely |
-| Rainbow / spectral color palette | Gray default + single highlight color |
-| Gauge / speedometer widget | Single number with sparkline and context |
-| Zebra-striped table rows | Whitespace + thin rules every 3-5 rows |
-| Gradient fills on bars/areas | Solid flat color |
-| Rotated axis labels (45/90 degrees) | Horizontal bar chart or abbreviated labels |
-| `background: #ffffff` or `#fff` | `#fffff8` (light) or `#151515` (dark) |
-| Thick borders / box around chart | Remove entirely |
-
-For per-library detection patterns and one-liner code fixes, see `rules/anti-patterns.md`.
+For the full table with per-library detection patterns and one-liner fixes, see `rules/anti-patterns.md`.
 
 ---
 
@@ -241,36 +206,25 @@ Before presenting any chart, verify:
 - [ ] Notable data features annotated directly on chart
 - [ ] Comparison context present (reference line, band, or second series)
 - [ ] Tooltips are plain text with no decorative styling
+- [ ] Interactive elements have tap/click/focus alternatives (no hover-only)
+- [ ] Contrast ratios meet 3:1 (elements) / 4.5:1 (text) minimums
+- [ ] Chart has a text alternative (aria-label, description, or data table)
+- [ ] Animations respect `prefers-reduced-motion`
+- [ ] Charts render usably at 320px and 1440px+ widths
+- [ ] Title states the finding, not the axis description
+- [ ] Numbers are formatted for readability (abbreviations, separators, consistent precision)
+- [ ] A chart is warranted — the data couldn't be communicated as a sentence or table
 
 ---
 
 ## Additional resources
 
-### Library-specific rules (read ONE matching the target library)
+**Library rules** (read ONE per task): `rules/recharts.md`, `rules/echarts.md`, `rules/chartjs.md`, `rules/matplotlib.md`, `rules/plotly.md`, `rules/svg-html.md` — complete code examples, helpers, and theme registrations.
 
-Complete code examples, helper functions, and theme registrations in `rules/`:
+**Cross-cutting** (read when specifically needed):
+- `rules/interactive-and-accessible.md` — progressive disclosure, WCAG, responsive, animation, dark mode
+- `rules/typography-and-color.md` — font loading, full palette tables, old-style figures
+- `rules/anti-patterns.md` — per-library detection heuristics and fixes
+- `rules/small-multiples-sparklines.md` — layout patterns for small multiples, sparklines, slopegraphs
 
-- **`rules/recharts.md`** — Custom Tooltip, direct label component, range-frame tick, full JSX examples
-- **`rules/echarts.md`** — Theme registration, base option object, endLabel config, markPoint/markLine
-- **`rules/chartjs.md`** — Global defaults, Tufte plugin, datalabels integration, annotation plugin
-- **`rules/matplotlib.md`** — Full rcParams dict, `tufte_axes()` helper, sparkline function, seaborn integration
-- **`rules/plotly.md`** — Reusable `pio.templates['tufte']`, annotation helpers, Plotly.js equivalent
-- **`rules/svg-html.md`** — SVG chart CSS, D3 axis config, inline sparkline generator, HTML table CSS
-
-### Cross-cutting references (read only when specifically needed)
-
-- **`rules/typography-and-color.md`** — Font loading (ET Book CSS), full palette tables, old-style figures
-- **`rules/anti-patterns.md`** — Per-library detection heuristics and one-liner fixes
-- **`rules/small-multiples-sparklines.md`** — Layout patterns for small multiples, sparkline implementations, slopegraphs
-
-### Working code examples
-
-Complete implementations in `examples/`:
-
-- **`examples/recharts-tufte-line.tsx`** — Recharts line chart with all principles applied
-- **`examples/recharts-tufte-bar.tsx`** — Recharts horizontal bar chart
-- **`examples/matplotlib-tufte-annotated.py`** — matplotlib annotated time series
-- **`examples/plotly-tufte-template.py`** — Plotly template with Tufte styling
-- **`examples/echarts-tufte-theme.ts`** — ECharts theme registration
-- **`examples/chartjs-tufte-plugin.js`** — Chart.js Tufte plugin and defaults
-- **`examples/sparkline-inline.svg`** — Minimal SVG sparkline
+**Working examples** in `examples/` — one per library, plus an inline SVG sparkline.
