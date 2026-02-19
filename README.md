@@ -8,9 +8,29 @@ An agent skill that applies [Edward Tufte's](https://www.edwardtufte.com/) data 
 npx skills add caylent/tufte-data-viz
 ```
 
+## Before & After
+
+The same data, default styling vs. Tufte principles applied:
+
+![Before and after comparison — default chart style vs. Tufte style](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/before-after.png)
+
+## Examples
+
+### Line chart — direct labels, range-frame axes, annotation
+
+![Tufte-styled line chart showing revenue vs. target with direct labels and peak annotation](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-line-chart.png)
+
+### Horizontal bar chart — sorted by value, highlighted leader
+
+![Tufte-styled horizontal bar chart with direct value labels and highlighted top product](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-bar-chart.png)
+
+### Small multiples — shared scale, minimal chrome
+
+![Small multiples showing revenue trend by region with shared y-axis](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/small-multiples.png)
+
 ## What it does
 
-When active, this skill ensures every chart Claude generates follows Tufte's core principles:
+When active, this skill ensures every chart follows Tufte's core principles:
 
 - **Maximize data-ink ratio** — remove gridlines, borders, legends, and decoration that don't convey data
 - **Direct labeling** — label series on the chart itself, not in a separate legend
