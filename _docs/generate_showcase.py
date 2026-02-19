@@ -246,4 +246,160 @@ plt.subplots_adjust(top=0.82, wspace=0.1)
 plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/small-multiples.png")
 plt.close()
 
+# ==============================================================================
+# Chart 5: Dark Mode Line Chart (Rule 19)
+# ==============================================================================
+
+TUFTE_DARK_RC = {
+    **TUFTE_RC,
+    "figure.facecolor": "#151515",
+    "axes.facecolor": "#151515",
+    "axes.edgecolor": "#444444",
+    "axes.labelcolor": "#999999",
+    "xtick.color": "#666666",
+    "ytick.color": "#666666",
+    "savefig.facecolor": "#151515",
+}
+
+CD = {
+    "text": "#dddddd",
+    "text2": "#999999",
+    "text3": "#666666",
+    "gray": "#999999",
+    "highlight": "#fc8d62",
+    "axis": "#444444",
+    "cat": ["#6a9fd8", "#f2a860", "#e87a7c", "#8accc7"],
+}
+
+plt.rcParams.update(TUFTE_DARK_RC)
+
+fig, ax = plt.subplots(figsize=(9, 6))
+ax.plot(months, target, color=CD["gray"], linewidth=1, linestyle="--")
+ax.plot(months, revenue, color=CD["highlight"], linewidth=2)
+tufte_axes(ax, months, revenue + target)
+ax.spines["bottom"].set_color(CD["axis"])
+ax.spines["left"].set_color(CD["axis"])
+
+ax.annotate("Revenue", xy=(12, 82), xytext=(8, 0), textcoords="offset points",
+            fontsize=12, color=CD["highlight"], va="center", fontfamily="serif")
+ax.annotate("Target", xy=(12, 62), xytext=(8, 0), textcoords="offset points",
+            fontsize=12, color=CD["gray"], va="center", fontfamily="serif")
+
+ax.annotate("Peak: $82k", xy=(12, 82), xytext=(0, 18), textcoords="offset points",
+            fontsize=11, fontstyle="italic", color=CD["text2"], fontfamily="serif",
+            ha="center", arrowprops=dict(arrowstyle="-", color=CD["axis"], lw=0.5))
+
+ax.set_xticks(months)
+ax.set_xticklabels(mlabels)
+ax.set_ylabel("Revenue ($k)", fontsize=12, color=CD["text2"])
+
+fig.text(0.125, 0.95, "Revenue Beat Target Every Month in 2025",
+         fontsize=18, fontfamily="serif", color=CD["text"])
+fig.text(0.125, 0.91, "Gap widened from 2k in Jan to 20k in Dec, accelerating in H2",
+         fontsize=13, fontfamily="serif", color=CD["text2"])
+
+plt.tight_layout()
+plt.subplots_adjust(top=0.88)
+plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-dark-mode.png")
+plt.close()
+
+
+# ==============================================================================
+# Chart 6: Accessible Scatter — Dual Encoding (Rule 16)
+# ==============================================================================
+
+plt.rcParams.update(TUFTE_RC)
+
+np.random.seed(99)
+groups = {
+    "Enterprise":  {"x": np.random.normal(70, 12, 15), "y": np.random.normal(85, 8, 15),
+                    "marker": "o", "color": "#4e79a7"},
+    "Mid-Market":  {"x": np.random.normal(45, 10, 20), "y": np.random.normal(60, 10, 20),
+                    "marker": "s", "color": "#f28e2b"},
+    "SMB":         {"x": np.random.normal(25, 8, 25),  "y": np.random.normal(35, 12, 25),
+                    "marker": "D", "color": "#76b7b2"},
+}
+
+fig, ax = plt.subplots(figsize=(9, 6))
+
+for name, g in groups.items():
+    ax.scatter(g["x"], g["y"], marker=g["marker"], c=g["color"],
+              s=40, alpha=0.7, edgecolors="none", label=name)
+    # Direct label at cluster centroid
+    cx, cy = np.mean(g["x"]), np.mean(g["y"])
+    ax.annotate(name, xy=(cx, cy), xytext=(12, 0), textcoords="offset points",
+                fontsize=12, color=g["color"], va="center", fontfamily="serif",
+                fontweight="bold")
+
+all_x = np.concatenate([g["x"] for g in groups.values()])
+all_y = np.concatenate([g["y"] for g in groups.values()])
+tufte_axes(ax, all_x, all_y)
+
+ax.set_xlabel("Deal Cycle (days)", fontsize=12, color=C["text2"])
+ax.set_ylabel("Win Rate (%)", fontsize=12, color=C["text2"])
+
+fig.text(0.125, 0.95, "Enterprise Wins Faster and More Often",
+         fontsize=18, fontfamily="serif", color=C["text"])
+fig.text(0.125, 0.91, "Each shape = segment (accessible without color)",
+         fontsize=13, fontfamily="serif", color=C["text2"])
+
+plt.tight_layout()
+plt.subplots_adjust(top=0.88)
+plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-accessible-scatter.png")
+plt.close()
+
+
+# ==============================================================================
+# Chart 7: Light vs Dark Side-by-Side (Rule 19)
+# ==============================================================================
+
+fig, axes = plt.subplots(1, 2, figsize=(16, 5.5))
+
+themes = [
+    {"bg": "#fffff8", "text": "#111111", "text2": "#666666", "text3": "#999999",
+     "gray": "#666666", "highlight": "#e41a1c", "axis": "#cccccc", "label": "Light Mode"},
+    {"bg": "#151515", "text": "#dddddd", "text2": "#999999", "text3": "#666666",
+     "gray": "#999999", "highlight": "#fc8d62", "axis": "#444444", "label": "Dark Mode"},
+]
+
+products = ["Product A", "Product B", "Product C", "Product D", "Product E"]
+vals = [42, 38, 27, 19, 12]
+
+for ax, t in zip(axes, themes):
+    ax.set_facecolor(t["bg"])
+    bars = ax.barh(products, vals, color=t["gray"], height=0.55)
+    bars[0].set_color(t["highlight"])
+
+    for bar, val in zip(bars, vals):
+        ax.text(bar.get_width() + 0.5, bar.get_y() + bar.get_height() / 2,
+                f"${val}k", va="center", fontsize=12, color=t["text2"], fontfamily="serif")
+
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    ax.set_xticks([])
+    ax.tick_params(left=False, colors=t["text3"])
+    ax.set_yticks(range(len(products)))
+    ax.set_yticklabels(products, color=t["text2"], fontfamily="serif")
+    ax.invert_yaxis()
+
+    ax.set_title(t["label"], fontsize=14, fontfamily="serif", color=t["text2"],
+                 fontweight="normal", loc="left", pad=8)
+
+fig.patch.set_facecolor("#fffff8")
+# Split background: left half light, right half dark
+from matplotlib.patches import Rectangle
+fig.patches.append(Rectangle((0.5, 0), 0.5, 1, transform=fig.transFigure,
+                              facecolor="#151515", zorder=-1))
+
+fig.text(0.25, 1.0, r"Product A Leads Revenue at $42k",
+         fontsize=16, fontfamily="serif", color="#111111", ha="center", va="top")
+fig.text(0.75, 1.0, r"Product A Leads Revenue at $42k",
+         fontsize=16, fontfamily="serif", color="#dddddd", ha="center", va="top")
+
+plt.tight_layout()
+plt.subplots_adjust(top=0.85, wspace=0.3)
+plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-light-dark.png")
+plt.close()
+
+
 print("Generated all showcase images.")

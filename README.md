@@ -28,6 +28,18 @@ The same data, default styling vs. Tufte principles applied:
 
 ![Small multiples showing revenue trend by region with shared y-axis](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/small-multiples.png)
 
+### Dark mode — intentional palette, not inverted
+
+![Dark mode line chart with desaturated highlight color on dark background](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-dark-mode.png)
+
+### Accessible scatter — dual-encoded with shape + color
+
+![Scatter plot using different shapes per segment so data is distinguishable without color](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-accessible-scatter.png)
+
+### Light & dark — same chart, both themes
+
+![Side-by-side bar chart in light and dark mode showing intentional palette design](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-light-dark.png)
+
 ## What it does
 
 22 universal rules applied to every chart, organized in three tiers:
