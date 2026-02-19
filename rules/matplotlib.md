@@ -275,9 +275,10 @@ sns.set_theme(style="ticks", rc=TUFTE_RC)
 
 # After any seaborn plot, clean up:
 sns.despine()  # Removes top and right spines
+ax = plt.gca()
+ax.get_legend().remove()  # Seaborn adds legends by default — remove
 
 # For range-frame after a seaborn plot:
-ax = plt.gca()
 tufte_axes(ax, x_data, y_data)
 ```
 

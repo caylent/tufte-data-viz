@@ -126,12 +126,12 @@ ax.set_ylabel("Revenue ($k)", fontsize=12, color=COLORS["text_secondary"])
 # Title
 fig.text(
     0.12, 0.95,
-    "Monthly Revenue vs. Target, 2025",
+    "Revenue Exceeded Target Every Month, Accelerating in H2",
     fontsize=18, fontfamily="serif", color=COLORS["text"],
 )
 fig.text(
     0.12, 0.91,
-    "Revenue exceeded target every month, accelerating in H2",
+    "Monthly revenue vs. target, 2025",
     fontsize=13, fontfamily="serif", color=COLORS["text_secondary"],
 )
 

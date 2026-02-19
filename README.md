@@ -14,6 +14,14 @@ The same data, default styling vs. Tufte principles applied:
 
 ![Before and after comparison — default chart style vs. Tufte style](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/before-after.png)
 
+See it happen live — gridlines fade, legends become direct labels, chartjunk dissolves:
+
+![Animated transition from default chart styling to Tufte principles](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/before-after-animated.gif)
+
+## Interactive Demo
+
+**[Try the live demo](https://caylent.github.io/tufte-data-viz/)** — toggle between default and Tufte styling across ECharts, Chart.js, Plotly, and D3.js. Includes dark mode.
+
 ## Examples
 
 ### Line chart — direct labels, range-frame axes, annotation
@@ -24,9 +32,21 @@ The same data, default styling vs. Tufte principles applied:
 
 ![Tufte-styled horizontal bar chart with direct value labels and highlighted top product](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-bar-chart.png)
 
+### Slopegraph — before/after comparison
+
+![Slopegraph showing team size changes from 2024 to 2025, highlighting Engineering growth](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-slopegraph.png)
+
 ### Small multiples — shared scale, minimal chrome
 
 ![Small multiples showing revenue trend by region with shared y-axis](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/small-multiples.png)
+
+### Sparklines — word-sized charts with min/max markers
+
+![Five sparklines showing key metrics over 24 months with min and max markers](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-sparklines.png)
+
+### Data table — whitespace, thin rules, highlighted outlier
+
+![Tufte-styled data table with thin rules, right-aligned numbers, and highlighted growth leader](https://raw.githubusercontent.com/caylent/tufte-data-viz/main/_docs/tufte-data-table.png)
 
 ### Dark mode — intentional palette, not inverted
 

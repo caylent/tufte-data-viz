@@ -159,6 +159,9 @@ The universal rules above are sufficient for most charts. For complete code exam
 | **Sparklines** | ~80x20px, no axes/labels/gridlines, min/max dots r=1.5, embed inline in text or table cells |
 | **Data tables** | No zebra striping, whitespace + thin rules every 3–5 rows, right-align numbers, `font-feature-settings: 'onum' 1` |
 | **Slopegraph** | Before/after categories, label both endpoints (value + name), gray default + highlight key slopes |
+| **Area** | Prefer lines. If area: fillOpacity 0.03–0.08, no gradient, direct labels at endpoints |
+| **Stacked bar** | Avoid — use small multiples instead. If forced: sort by total, direct labels per segment, max 4 segments |
+| **Heatmap** | Sequential or diverging palette only, value labels in cells, companion data table for accessibility |
 
 For small multiples, sparklines, and slopegraph implementation patterns, see `rules/small-multiples-sparklines.md`.
 

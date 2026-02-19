@@ -36,7 +36,7 @@ If gridlines are truly needed for reading precision:
 <CartesianGrid
   vertical={false}
   stroke={TUFTE.grid}
-  strokeOpacity={0.5}
+  strokeOpacity={0.1}
   strokeWidth={0.5}
 />
 ```
