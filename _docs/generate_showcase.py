@@ -1,9 +1,14 @@
 """Generate showcase images for the README."""
 
+from pathlib import Path
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+
+# Images are written next to this script (the _docs/ folder).
+OUT_DIR = Path(__file__).resolve().parent
 
 # --- Tufte defaults -----------------------------------------------------------
 
@@ -94,7 +99,7 @@ fig.text(0.125, 0.91, "Monthly revenue vs. target, 2025",
 
 plt.tight_layout()
 plt.subplots_adjust(top=0.88)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-line-chart.png")
+plt.savefig(OUT_DIR / "tufte-line-chart.png")
 plt.close()
 
 
@@ -128,7 +133,7 @@ fig.text(0.04, 0.90, "Revenue by product, sorted by value",
 
 plt.tight_layout()
 plt.subplots_adjust(top=0.85)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-bar-chart.png")
+plt.savefig(OUT_DIR / "tufte-bar-chart.png")
 plt.close()
 
 
@@ -202,7 +207,7 @@ fig.text(0.74, 0.02, "AFTER", fontsize=14, fontfamily="serif",
 fig.patch.set_facecolor("#fffff8")
 plt.tight_layout()
 plt.subplots_adjust(bottom=0.1, wspace=0.25)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/before-after.png")
+plt.savefig(OUT_DIR / "before-after.png")
 plt.close()
 
 
@@ -243,7 +248,7 @@ fig.text(0.08, 0.98, "North and East Outpaced South and West in 2025",
          fontsize=16, fontfamily="serif", color=C["text"], va="top")
 plt.tight_layout()
 plt.subplots_adjust(top=0.82, wspace=0.1)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/small-multiples.png")
+plt.savefig(OUT_DIR / "small-multiples.png")
 plt.close()
 
 # ==============================================================================
@@ -300,7 +305,7 @@ fig.text(0.125, 0.91, "Gap widened from 2k in Jan to 20k in Dec, accelerating in
 
 plt.tight_layout()
 plt.subplots_adjust(top=0.88)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-dark-mode.png")
+plt.savefig(OUT_DIR / "tufte-dark-mode.png")
 plt.close()
 
 
@@ -345,7 +350,7 @@ fig.text(0.125, 0.91, "Each shape = segment (accessible without color)",
 
 plt.tight_layout()
 plt.subplots_adjust(top=0.88)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-accessible-scatter.png")
+plt.savefig(OUT_DIR / "tufte-accessible-scatter.png")
 plt.close()
 
 
@@ -398,7 +403,7 @@ fig.text(0.75, 1.0, r"Product A Leads Revenue at $42k",
 
 plt.tight_layout()
 plt.subplots_adjust(top=0.85, wspace=0.3)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-light-dark.png")
+plt.savefig(OUT_DIR / "tufte-light-dark.png")
 plt.close()
 
 
@@ -453,7 +458,7 @@ fig.text(0.12, 0.92, "Team size as % of company, 2024 vs. 2025",
 
 plt.tight_layout()
 plt.subplots_adjust(top=0.89)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-slopegraph.png")
+plt.savefig(OUT_DIR / "tufte-slopegraph.png")
 plt.close()
 
 
@@ -509,7 +514,7 @@ fig.text(0.5, 0.94, "Red dot = min, blue dot = max",
 fig.patch.set_facecolor("#fffff8")
 plt.tight_layout()
 plt.subplots_adjust(top=0.85, left=0.18, right=0.92, hspace=0.4)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-sparklines.png")
+plt.savefig(OUT_DIR / "tufte-sparklines.png")
 plt.close()
 
 
@@ -580,7 +585,7 @@ fig.text(0.06, 0.90, "Quarterly revenue by region, 2025 (millions USD)",
 fig.patch.set_facecolor("#fffff8")
 plt.tight_layout()
 plt.subplots_adjust(top=0.82)
-plt.savefig("/Users/ranman/dev/caylent/tufte-data-viz/_docs/tufte-data-table.png")
+plt.savefig(OUT_DIR / "tufte-data-table.png")
 plt.close()
 
 
@@ -700,7 +705,7 @@ for i in range(total_frames):
 
 # Save as GIF
 pil_frames[0].save(
-    "/Users/ranman/dev/caylent/tufte-data-viz/_docs/before-after-animated.gif",
+    OUT_DIR / "before-after-animated.gif",
     save_all=True,
     append_images=pil_frames[1:],
     duration=int(1000 / 15),  # ~67ms per frame = 15fps
