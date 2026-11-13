@@ -154,9 +154,16 @@ All snippets below. Read only what you need for your target library.
 <XAxis stroke="var(--tufte-axis)" tick={{ fill: 'var(--tufte-text-secondary)' }} />
 <Line stroke="var(--tufte-series-default)" animationDuration={prefersReducedMotion ? 0 : 400} />
 
-// Linked small multiples
+// Linked small multiples — simplest: give every panel the same syncId
+<LineChart data={data} syncId="metrics">...</LineChart>
+
+// Or track the hovered index yourself (handler goes on the chart, not on <Line>)
 const [activeIndex, setActiveIndex] = useState(null);
-<Line onMouseMove={(e) => setActiveIndex(e.activeTooltipIndex)} />
+<LineChart
+  data={data}
+  onMouseMove={(state) => setActiveIndex(state?.activeTooltipIndex ?? null)}
+  onMouseLeave={() => setActiveIndex(null)}
+>...</LineChart>
 ```
 
 ### Chart.js

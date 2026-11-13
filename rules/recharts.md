@@ -97,30 +97,7 @@ const TufteTooltip = ({ active, payload, label }: any) => {
 
 ### Removing Legend — direct label pattern
 
-Never use `<Legend />`. Instead, label each line at its last data point:
-
-```tsx
-const DirectLabel = ({ data, dataKey, stroke, name }: {
-  data: any[]; dataKey: string; stroke: string; name: string;
-}) => {
-  const last = data[data.length - 1];
-  if (!last) return null;
-  return (
-    <text
-      x="97%"
-      y={0} // Will be positioned by ReferenceDot
-      fill={stroke}
-      fontSize={13}
-      fontFamily={TUFTE.font}
-      textAnchor="start"
-    >
-      {name}
-    </text>
-  );
-};
-```
-
-A simpler approach using `<ReferenceLine>`:
+Never use `<Legend />`. Instead, label each line at its last data point with an invisible `<ReferenceLine>` (leave enough right margin for the label):
 
 ```tsx
 <ReferenceLine
