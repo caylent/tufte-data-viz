@@ -39,7 +39,9 @@ export const tuftePlugin = {
  */
 export function applyTufteDefaults(Chart) {
   // Colors and fonts
-  Chart.defaults.backgroundColor = TUFTE.bg;
+  // backgroundColor is the default fill for bars/points/areas, not the canvas.
+  // The canvas background is painted by tuftePlugin.
+  Chart.defaults.backgroundColor = TUFTE.seriesDefault;
   Chart.defaults.color = TUFTE.textTertiary;
   Chart.defaults.font.family = TUFTE.font;
   Chart.defaults.font.size = 12;

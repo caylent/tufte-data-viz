@@ -171,7 +171,8 @@ new Chart(ctx, { options: {
 // Dark mode
 const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
 Chart.defaults.color = isDark ? '#999' : '#666';
-Chart.defaults.backgroundColor = isDark ? '#151515' : '#fffff8';
+Chart.defaults.backgroundColor = isDark ? '#999' : '#666'; // element fill, not canvas
+// Paint the canvas itself (#151515 / #fffff8) with a beforeDraw plugin — see rules/chartjs.md
 ```
 
 ### ECharts
