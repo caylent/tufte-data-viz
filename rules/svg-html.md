@@ -184,19 +184,22 @@ function annotate(svg, x, y, text, xScale, yScale) {
 A minimal sparkline for embedding in text or table cells:
 
 ```html
+<!-- Data: [15, 12, 8, 14, 6, 10, 3, 9, 5]
+     SVG y grows downward, so y = height - 2 - (v - min) / (max - min) * (height - 4):
+     the max sits near the top (y=2) and the min near the bottom (y=18). -->
 <svg viewBox="0 0 80 20" width="80" height="20" style="vertical-align: middle;">
   <polyline
-    points="0,15 10,12 20,8 30,14 40,6 50,10 60,3 70,9 80,5"
+    points="0,2 10,6 20,11.3 30,3.3 40,14 50,8.7 60,18 70,10 80,15.3"
     fill="none"
     stroke="#666"
     stroke-width="1"
   />
-  <!-- Min point (red dot) -->
-  <circle cx="60" cy="3" r="1.5" fill="#e15759" />
-  <!-- Max point (blue dot) — find from data -->
-  <circle cx="0" cy="15" r="1.5" fill="#4e79a7" />
-  <!-- Endpoint -->
-  <circle cx="80" cy="5" r="1.5" fill="#666" />
+  <!-- Min point (value=3, index=6) — coral -->
+  <circle cx="60" cy="18" r="1.5" fill="#e15759" />
+  <!-- Max point (value=15, index=0) — blue -->
+  <circle cx="0" cy="2" r="1.5" fill="#4e79a7" />
+  <!-- Endpoint (value=5) — gray -->
+  <circle cx="80" cy="15.3" r="1.5" fill="#666" />
 </svg>
 ```
 
