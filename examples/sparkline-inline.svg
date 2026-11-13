@@ -4,11 +4,13 @@
     Tufte sparkline: word-sized, no axes, no labels.
     Min marked in coral, max in blue, endpoint in gray.
     Data: [15, 12, 8, 14, 6, 10, 3, 9, 5]
+    SVG y grows downward: y = 20 - 2 - (v - min) / (max - min) * 16,
+    so high values sit near the top.
   -->
 
   <!-- Data line -->
   <polyline
-    points="0,15.3 10,12.8 20,9.4 30,13.6 40,6.8 50,10.2 60,4.3 70,9.4 80,7.7"
+    points="0,2 10,6 20,11.3 30,3.3 40,14 50,8.7 60,18 70,10 80,15.3"
     fill="none"
     stroke="#666"
     stroke-width="1"
@@ -16,11 +18,11 @@
   />
 
   <!-- Max point (value=15, index=0) — blue -->
-  <circle cx="0" cy="15.3" r="1.5" fill="#4e79a7" />
+  <circle cx="0" cy="2" r="1.5" fill="#4e79a7" />
 
   <!-- Min point (value=3, index=6) — coral -->
-  <circle cx="60" cy="4.3" r="1.5" fill="#e15759" />
+  <circle cx="60" cy="18" r="1.5" fill="#e15759" />
 
   <!-- Endpoint (value=5, index=8) — gray -->
-  <circle cx="80" cy="7.7" r="1.5" fill="#666" />
+  <circle cx="80" cy="15.3" r="1.5" fill="#666" />
 </svg>
