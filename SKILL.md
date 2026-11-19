@@ -2,7 +2,7 @@
 name: tufte-data-viz
 description: >-
   Use when creating, reviewing, or styling charts, graphs, dashboards,
-  sparklines, or any data visualization. Applies to Recharts, ECharts,
+  sparklines, maps, or any data visualization. Applies to Recharts, ECharts,
   Chart.js, matplotlib, Plotly, seaborn, D3.js, and SVG. Enforces Tufte
   principles (data-ink ratio, direct labeling, range-frame axes) plus
   modern screen-first standards (accessibility, responsive, dark mode).
@@ -12,6 +12,8 @@ allowed-tools: Read, Glob, Grep
 # Tufte Data Visualization
 
 Apply Edward Tufte's principles whenever generating or reviewing code that renders data visually. This skill covers chart generation, not slide/presentation design.
+
+**Maps:** for any display on geographic space (choropleth, dot, symbol, flow or small-multiple maps), also read `rules/maps.md`. Its rules are drawn only from Tufte's writing on data maps.
 
 ## Workflow
 
@@ -229,5 +231,6 @@ Before presenting any chart, verify:
 - `rules/typography-and-color.md` — font loading, full palette tables, old-style figures
 - `rules/anti-patterns.md` — per-library detection heuristics and fixes
 - `rules/small-multiples-sparklines.md` — layout patterns for small multiples, sparklines, slopegraphs
+- `rules/maps.md` — choropleth, dot, flow and small-multiple maps, from Tufte's writing on data maps (Snow, Minard, the Tokyo mesh maps, Imhof's color rules)
 
 **Working examples** in `examples/` — one per library, plus an inline SVG sparkline.
