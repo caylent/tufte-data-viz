@@ -158,7 +158,7 @@ Small multiples let the eye compare; a constant design keeps attention on change
 
 *Source: Tufte, EI ch. 6, p. 97; VDQI ch. 1, pp. 40–41; BE ch. 5.*
 
-"Painting four-variable narrations of space-time onto flatland combines two familiar designs, the map and the time-series" (EI p. 97). Minard carries time along the route as the width of the flow and ties the dated temperature series to positions on the retreat (VDQI pp. 40–41; BE ch. 5). For a spreading phenomenon Tufte's two designs are the flow line that carries time along its path and the time-indexed small multiple (rule 16).
+"Painting four-variable narrations of space-time onto flatland combines two familiar designs, the map and the time-series" (EI p. 97). In Minard's map, the band's width shows how many soldiers remain at each point on the route. The temperature chart below the map links dated readings to locations along the retreat (VDQI pp. 40–41; BE ch. 5). For a spreading phenomenon Tufte's two designs are the flow line that carries time along its path and the time-indexed small multiple (rule 16).
 
 ### 18. Document the map on the map
 
@@ -188,6 +188,12 @@ Tufte writes no cartography manual. He gives no rule on map projection, on north
 Colors and fonts come from `rules/typography-and-color.md`. The specific values below (colormap names, line widths, opacities) are this skill's defaults, not Tufte's.
 
 **geopandas + matplotlib (choropleth of a rate)**
+
+The quantile classification (`scheme="quantiles"`) requires `mapclassify`.
+
+```bash
+python -m pip install geopandas matplotlib mapclassify
+```
 
 ```python
 import geopandas as gpd
