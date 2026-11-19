@@ -10,7 +10,10 @@ Apply at app initialization to make every Chart.js chart Tufte-compliant by defa
 import { Chart } from 'chart.js';
 
 // Global Tufte defaults
-Chart.defaults.backgroundColor = '#fffff8';
+// Note: Chart.defaults.backgroundColor is the default *fill* for bars, points
+// and areas, not the canvas background. Keep it gray so uncolored elements
+// stay visible; the canvas is painted off-white by the Tufte plugin below.
+Chart.defaults.backgroundColor = '#666';
 Chart.defaults.color = '#999';
 Chart.defaults.font.family = '"ET Book", "Palatino Linotype", Palatino, Georgia, serif';
 Chart.defaults.font.size = 12;

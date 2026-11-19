@@ -38,8 +38,8 @@ const tufteTheme = {
   },
   bar: {
     itemStyle: {
-      barBorderWidth: 0,
-      barBorderColor: '#ccc',
+      borderWidth: 0,
+      borderColor: '#ccc',
     },
   },
   categoryAxis: {
